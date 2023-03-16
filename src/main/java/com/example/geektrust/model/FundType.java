@@ -1,6 +1,6 @@
 package com.example.geektrust.model;
 
-public enum FundTypes {
+public enum FundType {
     EQUITY,
     DEBT,
     GOLD

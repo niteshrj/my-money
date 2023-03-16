@@ -1,22 +1,29 @@
 package com.example.geektrust;
 
-import java.io.FileInputStream;
+import com.example.geektrust.command.CommandInvoker;
+import com.example.geektrust.model.Portfolio;
+import com.example.geektrust.printer.ConsolePrinter;
+import com.example.geektrust.printer.Printer;
+
+import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.Scanner;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.List;
 
 public class Main {
-    public static void main(String[] args)  {
+    public static void main(String[] args) throws FileNotFoundException {
         try {
-            // the file to be opened for reading
-            FileInputStream fis = new FileInputStream(args[0]);
-            Scanner sc = new Scanner(fis); // file to be scanned
-            // returns true if there is another line to read
-            while (sc.hasNextLine()) {
-                System.out.println(sc.nextLine());
-            }
-            sc.close(); // closes the scanner
+            Path filePath = Paths.get(args[0]);
+            List<String> lines = Files.readAllLines(filePath);
+            Printer consolePrinter = new ConsolePrinter();
+            Portfolio portfolio = new Portfolio();
+            CommandInvoker invoker = new CommandInvoker(portfolio, consolePrinter);
+            lines.forEach(invoker::addCommand);
+            invoker.executeCommands();
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new FileNotFoundException("FILE_NOT_FOUND");
         }
-	}
+    }
 }
