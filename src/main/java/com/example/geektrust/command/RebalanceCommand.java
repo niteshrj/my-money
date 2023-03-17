@@ -9,8 +9,8 @@ import java.time.Month;
 import java.util.List;
 
 public class RebalanceCommand implements Command {
-    private Portfolio portfolio;
-    private Printer printer;
+    private final Portfolio portfolio;
+    private final Printer printer;
 
     public RebalanceCommand(Portfolio portfolio, Printer printer) {
         this.portfolio = portfolio;

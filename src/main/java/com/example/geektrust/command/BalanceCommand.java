@@ -9,8 +9,8 @@ import java.util.List;
 
 public class BalanceCommand implements Command {
     private final Portfolio portfolio;
-    private Month month;
-    private Printer printer;
+    private final Month month;
+    private final Printer printer;
 
     public BalanceCommand(Portfolio portfolio, String month, Printer printer) {
         this.portfolio = portfolio;

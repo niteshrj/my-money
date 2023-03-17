@@ -25,25 +25,26 @@ public class CommandInvoker {
     public void addCommand(String line) {
         List<String> instructions = Arrays.asList(line.trim().split(" "));
         CommandTypes command = CommandTypes.valueOf(instructions.get(0));
+        List<String> parameters = instructions.subList(1, instructions.size());
 
         switch (command) {
             case ALLOCATE:
-                this.commands.add(new AllocateCommand(portfolio, instructions));
+                this.commands.add(new AllocateCommand(portfolio, parameters));
                 break;
             case SIP:
-                this.sipEquityValue = instructions.get(1);
-                this.sipDebtValue = instructions.get(2);
-                this.sipGoldValue = instructions.get(3);
+                this.sipEquityValue = parameters.get(0);
+                this.sipDebtValue = parameters.get(1);
+                this.sipGoldValue = parameters.get(2);
                 break;
             case CHANGE:
-                Month changeMonth = Month.valueOf(instructions.get(4));
+                Month changeMonth = Month.valueOf(parameters.get(3));
                 if (changeMonth != Month.JANUARY) {
                     this.commands.add(new SIPCommand(portfolio, this.sipEquityValue, this.sipDebtValue, this.sipGoldValue, changeMonth));
                 }
-                this.commands.add(new ChangeCommand(portfolio, instructions, changeMonth));
+                this.commands.add(new ChangeCommand(portfolio, parameters, changeMonth));
                 break;
             case BALANCE:
-                this.commands.add(new BalanceCommand(portfolio, instructions.get(1), printer));
+                this.commands.add(new BalanceCommand(portfolio, parameters.get(0), printer));
                 break;
             case REBALANCE:
                 this.commands.add(new RebalanceCommand(portfolio, printer));

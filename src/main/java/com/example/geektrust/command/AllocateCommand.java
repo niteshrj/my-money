@@ -19,9 +19,9 @@ public class AllocateCommand implements Command {
 
     @Override
     public void execute() {
-        Fund equityFund = new Fund(FundType.EQUITY, new BigDecimal(this.parameters.get(1)), Month.JANUARY);
-        Fund debtFund = new Fund(FundType.DEBT, new BigDecimal(this.parameters.get(2)), Month.JANUARY);
-        Fund goldFund = new Fund(FundType.GOLD, new BigDecimal(this.parameters.get(3)), Month.JANUARY);
+        Fund equityFund = new Fund(FundType.EQUITY, new BigDecimal(this.parameters.get(0)), Month.JANUARY);
+        Fund debtFund = new Fund(FundType.DEBT, new BigDecimal(this.parameters.get(1)), Month.JANUARY);
+        Fund goldFund = new Fund(FundType.GOLD, new BigDecimal(this.parameters.get(2)), Month.JANUARY);
         portfolio.addFund(equityFund);
         portfolio.addFund(debtFund);
         portfolio.addFund(goldFund);

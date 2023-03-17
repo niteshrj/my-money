@@ -16,7 +16,7 @@ class ChangeCommandTest {
     @Test
     void shouldChangeEachFundForGivenPercentage() {
         Portfolio portfolio = mock(Portfolio.class);
-        List<String> parameters = Arrays.asList("CHANGE", "8.00%", "-3.00%", "7.00%");
+        List<String> parameters = Arrays.asList("8.00%", "-3.00%", "7.00%");
         ChangeCommand changeCommand = new ChangeCommand(portfolio, parameters, Month.MAY);
 
         changeCommand.execute();

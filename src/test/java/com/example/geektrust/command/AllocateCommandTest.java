@@ -18,7 +18,7 @@ class AllocateCommandTest {
         String equityValue = "6000";
         String debtValue = "3000";
         String goldValue = "1000";
-        List<String> parameters = Arrays.asList("ALLOCATE", equityValue, debtValue, goldValue);
+        List<String> parameters = Arrays.asList(equityValue, debtValue, goldValue);
         Portfolio mockPortfolio = mock(Portfolio.class);
 
         AllocateCommand allocateCommand = new AllocateCommand(mockPortfolio, parameters);

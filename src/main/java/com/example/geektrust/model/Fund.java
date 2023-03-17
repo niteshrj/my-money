@@ -61,6 +61,10 @@ public class Fund {
         return getFloorRoundedValue(currentValue);
     }
 
+    public BigDecimal getBalanceInMonth(Month month) {
+        return getFloorRoundedValue(monthlyBalances.get(month));
+    }
+
     private BigDecimal getPercentageValue(BigDecimal changePercentage) {
         String HUNDRED = "100";
         int DECIMAL_PRECISION = 2;
@@ -69,9 +73,6 @@ public class Fund {
                 .multiply(this.currentValue).setScale(DECIMAL_PRECISION, RoundingMode.HALF_UP);
     }
 
-    public BigDecimal getBalanceInMonth(Month month) {
-        return getFloorRoundedValue(monthlyBalances.get(month));
-    }
 
     private BigDecimal getFloorRoundedValue(BigDecimal value) {
         return value.setScale(0, RoundingMode.FLOOR);
