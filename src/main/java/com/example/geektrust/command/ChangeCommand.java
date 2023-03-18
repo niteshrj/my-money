@@ -25,7 +25,7 @@ public class ChangeCommand implements Command {
         portfolio.updateFundValue(FundType.GOLD, parameters.get(2), month);
 
         if (month == Month.JUNE || month == Month.DECEMBER) {
-            new Rebalancer(portfolio).rebalance();
+            new Rebalancer(portfolio).rebalancePortfolio();
         }
     }
 }

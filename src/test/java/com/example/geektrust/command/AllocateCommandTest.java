@@ -1,15 +1,12 @@
 package com.example.geektrust.command;
 
-import com.example.geektrust.command.AllocateCommand;
-import com.example.geektrust.model.Fund;
 import com.example.geektrust.model.Portfolio;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 import java.util.List;
 
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class AllocateCommandTest {
 
@@ -19,11 +16,11 @@ class AllocateCommandTest {
         String debtValue = "3000";
         String goldValue = "1000";
         List<String> parameters = Arrays.asList(equityValue, debtValue, goldValue);
-        Portfolio mockPortfolio = mock(Portfolio.class);
+        Portfolio portfolio = new Portfolio();
+        AllocateCommand allocateCommand = new AllocateCommand(portfolio, parameters);
 
-        AllocateCommand allocateCommand = new AllocateCommand(mockPortfolio, parameters);
         allocateCommand.execute();
 
-        verify(mockPortfolio, times(3)).addFund(any(Fund.class));
+        assertEquals(portfolio.getFunds().size(), 3);
     }
 }

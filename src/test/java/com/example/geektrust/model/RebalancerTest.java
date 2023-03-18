@@ -20,7 +20,7 @@ class RebalancerTest {
         portfolio.addFund(goldFund);
 
         Rebalancer rebalancer = new Rebalancer(portfolio);
-        rebalancer.rebalance();
+        rebalancer.rebalancePortfolio();
 
         BigDecimal equityCurrentValue = portfolio.getFund(FundType.EQUITY).getCurrentValue();
         BigDecimal debtCurrentValue = portfolio.getFund(FundType.DEBT).getCurrentValue();
@@ -35,7 +35,7 @@ class RebalancerTest {
         Portfolio portfolio = getPortfolioWith6MonthsData();
 
         Rebalancer rebalancer = new Rebalancer(portfolio);
-        rebalancer.rebalance();
+        rebalancer.rebalancePortfolio();
 
         BigDecimal equityCurrentValue = portfolio.getFund(FundType.EQUITY).getCurrentValue();
         BigDecimal debtCurrentValue = portfolio.getFund(FundType.DEBT).getCurrentValue();

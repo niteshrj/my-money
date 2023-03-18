@@ -13,4 +13,8 @@ public class Funds {
     public Fund getFund(FundType fundType) {
         return funds.stream().filter(fund -> fund.getFundType() == fundType).findFirst().orElse(null);
     }
+
+    public List<Fund> getFunds() {
+        return funds;
+    }
 }

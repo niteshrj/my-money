@@ -5,26 +5,23 @@ import com.example.geektrust.model.Portfolio;
 
 import java.math.BigDecimal;
 import java.time.Month;
+import java.util.List;
 
 public class SIPCommand implements Command {
     private final Portfolio portfolio;
-    private final String equityValue;
-    private final String debtValue;
-    private final String goldValue;
+    private List<String> parameters;
     private final Month month;
 
-    public SIPCommand(Portfolio portfolio, String equityValue, String debtValue, String goldValue, Month month) {
+    public SIPCommand(Portfolio portfolio, List<String> parameters, Month month) {
         this.portfolio = portfolio;
-        this.equityValue = equityValue;
-        this.debtValue = debtValue;
-        this.goldValue = goldValue;
+        this.parameters = parameters;
         this.month = month;
     }
 
     @Override
     public void execute() {
-        portfolio.addValueToFund(FundType.EQUITY, new BigDecimal(equityValue), month);
-        portfolio.addValueToFund(FundType.DEBT, new BigDecimal(debtValue), month);
-        portfolio.addValueToFund(FundType.GOLD, new BigDecimal(goldValue), month);
+        portfolio.addValueToFund(FundType.EQUITY, new BigDecimal(parameters.get(0)), month);
+        portfolio.addValueToFund(FundType.DEBT, new BigDecimal(parameters.get(1)), month);
+        portfolio.addValueToFund(FundType.GOLD, new BigDecimal(parameters.get(2)), month);
     }
 }

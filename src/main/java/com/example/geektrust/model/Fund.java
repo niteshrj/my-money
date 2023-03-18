@@ -10,7 +10,7 @@ public class Fund {
     private final FundType fundType;
     private BigDecimal currentValue;
     private final BigDecimal initialAllocation;
-    Map<Month, BigDecimal> monthlyBalances = new HashMap<>();
+    private final Map<Month, BigDecimal> monthlyBalances = new HashMap<>();
 
     public Fund(FundType fundType, BigDecimal currentValue, Month month) {
         this.fundType = fundType;
@@ -19,7 +19,7 @@ public class Fund {
         this.monthlyBalances.put(month, currentValue);
     }
 
-    public BigDecimal addValue(BigDecimal valueToAdd, Month month) {
+    public BigDecimal addSIPValue(BigDecimal valueToAdd, Month month) {
         this.currentValue = getFloorRoundedValue(this.currentValue.add(valueToAdd));
         this.monthlyBalances.put(month, currentValue);
         return this.currentValue;
@@ -35,14 +35,14 @@ public class Fund {
         BigDecimal valueToAdd = getPercentageValue(addPercentage);
         this.currentValue = getFloorRoundedValue(this.currentValue.add(valueToAdd));
         this.monthlyBalances.put(month, currentValue);
-        return getFloorRoundedValue(this.currentValue);
+        return this.currentValue;
     }
 
     public BigDecimal decreaseValueByPercentage(BigDecimal subtractPercentage, Month month) {
         BigDecimal valueToSubtract = getPercentageValue(subtractPercentage);
         this.currentValue = getFloorRoundedValue(this.currentValue.subtract(valueToSubtract));
         this.monthlyBalances.put(month, currentValue);
-        return getFloorRoundedValue(this.currentValue);
+        return this.currentValue;
     }
 
     public Map<Month, BigDecimal> getMonthlyBalances() {
@@ -58,11 +58,11 @@ public class Fund {
     }
 
     public BigDecimal getCurrentValue() {
-        return getFloorRoundedValue(currentValue);
+        return currentValue;
     }
 
     public BigDecimal getBalanceInMonth(Month month) {
-        return getFloorRoundedValue(monthlyBalances.get(month));
+        return monthlyBalances.get(month);
     }
 
     private BigDecimal getPercentageValue(BigDecimal changePercentage) {

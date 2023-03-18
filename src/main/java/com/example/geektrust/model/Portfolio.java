@@ -37,6 +37,10 @@ public class Portfolio {
     }
 
     public void addValueToFund(FundType fundType, BigDecimal valueToAdd, Month month) {
-        funds.getFund(fundType).addValue(valueToAdd, month);
+        funds.getFund(fundType).addSIPValue(valueToAdd, month);
+    }
+
+    public List<Fund> getFunds() {
+        return funds.getFunds();
     }
 }

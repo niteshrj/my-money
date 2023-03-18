@@ -1,13 +1,15 @@
 package com.example.geektrust.command;
 
-import com.example.geektrust.command.RebalanceCommand;
-import com.example.geektrust.model.Fund;
 import com.example.geektrust.model.FundType;
 import com.example.geektrust.model.Portfolio;
+import com.example.geektrust.model.Rebalancer;
 import com.example.geektrust.printer.ConsolePrinter;
-import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 import java.math.BigDecimal;
 import java.time.Month;
 
@@ -15,23 +17,39 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class RebalanceCommandTest {
 
-    @Disabled
-    @Test
-    void shouldRebalanceEachFund() {
-        Fund equityFund = new Fund(FundType.EQUITY, new BigDecimal("6000"), Month.JANUARY);
-        Fund debtFund = new Fund(FundType.DEBT, new BigDecimal("3000"), Month.JANUARY);
-        Fund goldFund = new Fund(FundType.GOLD, new BigDecimal("1000"), Month.JANUARY);
-        ConsolePrinter consolePrinter = new ConsolePrinter();
-        Portfolio portfolio = new Portfolio();
-        portfolio.addFund(equityFund);
-        portfolio.addFund(debtFund);
-        portfolio.addFund(goldFund);
+    ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 
+    @BeforeEach
+    void setUp() {
+        System.setOut(new PrintStream(outputStream));
+    }
+
+    @AfterEach
+    void tearDown() {
+        System.setOut(System.out);
+    }
+
+    @Test
+    void shouldPrintJuneRebalancedData() {
+        ConsolePrinter consolePrinter = new ConsolePrinter();
+        Portfolio portfolio = TestUtils.getPortfolioWith6MonthsFundMockData();
+        new Rebalancer(portfolio).rebalancePortfolio();
         RebalanceCommand rebalanceCommand = new RebalanceCommand(portfolio, consolePrinter);
+
         rebalanceCommand.execute();
 
-        assertEquals(new BigDecimal("13600"), portfolio.getFund(FundType.EQUITY).getCurrentValue());
-        assertEquals(new BigDecimal("8630"), portfolio.getFund(FundType.DEBT).getCurrentValue());
-        assertEquals(new BigDecimal("2966"), portfolio.getFund(FundType.GOLD).getCurrentValue());
+        assertEquals("21965 10982 3660", outputStream.toString().trim());
+    }
+
+    @Test
+    void shouldPrintDecemberRebalancedData() {
+        ConsolePrinter consolePrinter = new ConsolePrinter();
+        Portfolio portfolio = TestUtils.getPortfolioWith12MonthsFundMockData();
+        new Rebalancer(portfolio).rebalancePortfolio();
+        RebalanceCommand rebalanceCommand = new RebalanceCommand(portfolio, consolePrinter);
+
+        rebalanceCommand.execute();
+
+        assertEquals("23619 11809 3936", outputStream.toString().trim());
     }
 }

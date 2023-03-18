@@ -12,7 +12,7 @@ public class Rebalancer {
         this.portfolio = portfolio;
     }
 
-    public void rebalance() {
+    public void rebalancePortfolio() {
         if (isFundDataLessThanSixMonths()) {
             return;
         }
@@ -62,12 +62,12 @@ public class Rebalancer {
     }
 
     private boolean isMultipleOf(int num) {
-        return portfolio.getFund(FundType.EQUITY).monthlyBalances.size() % num == 0;
+        return portfolio.getFund(FundType.EQUITY).getMonthlyBalances().size() % num == 0;
     }
 
     private boolean isFundDataLessThanSixMonths() {
         int REBALANCE_MONTH_LIMIT = 6;
-        if (portfolio.getFund(FundType.EQUITY).monthlyBalances.size() < REBALANCE_MONTH_LIMIT) {
+        if (portfolio.getFund(FundType.EQUITY).getMonthlyBalances().size() < REBALANCE_MONTH_LIMIT) {
             return true;
         }
         return false;
